@@ -11,6 +11,8 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.regex;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
@@ -27,6 +29,16 @@ public class Main {
         MongoCursor<Product> cursor = productCollection.find().cursor();
         while (cursor.hasNext()) {
             System.out.println(cursor.next());
+        }
+
+        MongoCursor<Product> cursor1 = productCollection.find(eq("price", 10000)).cursor();
+        while (cursor1.hasNext()) {
+            System.out.println("cursor1 : " + cursor1.next());
+        }
+
+        MongoCursor<Product> cursor2 = productCollection.find(regex("name", "shoes")).cursor();
+        while (cursor2.hasNext()) {
+            System.out.println("cursor2 : " + cursor2.next());
         }
     }
 
