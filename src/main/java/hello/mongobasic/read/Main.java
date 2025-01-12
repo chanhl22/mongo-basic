@@ -13,6 +13,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.regex;
+import static com.mongodb.client.model.Sorts.descending;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
@@ -39,6 +40,13 @@ public class Main {
         MongoCursor<Product> cursor2 = productCollection.find(regex("name", "shoes")).cursor();
         while (cursor2.hasNext()) {
             System.out.println("cursor2 : " + cursor2.next());
+        }
+
+        MongoCursor<Product> cursor3 = productCollection.find(regex("name", "shoes"))
+                .sort(descending("price"))
+                .cursor();
+        while (cursor3.hasNext()) {
+            System.out.println("cursor3 : " + cursor3.next());
         }
     }
 
