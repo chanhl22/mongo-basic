@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+#    volumes:
+#      - ./mongod.conf:/etc/mongod.conf  # 로컬의 mongod.conf 파일을 컨테이너에 마운트
+#    command: mongod --config /etc/mongod.conf
+    command: mongod --replSet rs0
+    restart: always
